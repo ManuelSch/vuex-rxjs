@@ -1,6 +1,6 @@
 {
     "name": "vuex-rxjs",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A type-safe Vuex alternative utilizing RxJS; Compatible with Vue Devtools",
     "author": "manuelsch",
     "license": "MIT",
@@ -24,7 +24,8 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "pre-publish": "npm run build && npm pack && for %i in (*.tgz) do (tar -xzf %i)"
     },
     "peerDependencies": {
         "rxjs": "^6.3.3"
