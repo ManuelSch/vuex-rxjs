@@ -4,7 +4,7 @@ import {Action, IStore, Mutation} from "../types";
 import {fromPromise} from "rxjs/internal-compatibility";
 
 
-export class Module<ModuleState, ParentState> implements IStore<ModuleState, ParentState> {
+export class Module<ModuleState, RootState> implements IStore<ModuleState, RootState> {
 
     public readonly state$: Observable<ModuleState> =
         this.parentStore.state$.pipe(
@@ -15,33 +15,32 @@ export class Module<ModuleState, ParentState> implements IStore<ModuleState, Par
         );
 
     constructor(
-        private parentStore: IStore<ParentState>,
-        private stateMap: (state: ParentState) => ModuleState,
-        private dispatchMap: (moduleState: ModuleState, rootState: ParentState) => void
+        private parentStore: IStore<RootState>,
+        private stateMap: (state: RootState) => ModuleState,
+        private dispatchMap: (moduleState: ModuleState, rootState: RootState) => void
     ) {
 
     }
 
-    public commit(mutation: Mutation<ModuleState, ParentState>): void {
+    public commit(mutation: Mutation<ModuleState, RootState>): void {
         this.parentStore.commit({
             type: mutation.type,
-            payload: (rootState: ParentState) => {
-                const newState: ParentState = Object.assign({}, rootState);
+            payload: (rootState: RootState) => {
                 this.dispatchMap(
                     mutation.payload(
-                        this.stateMap(newState),
-                        newState),
-                    newState
+                        this.stateMap(rootState),
+                        rootState),
+                    rootState
                 );
-                return newState;
+                return rootState;
             }
         });
     }
 
-    public async dispatch(action: Action<ModuleState, ParentState>): Promise<void> {
+    public async dispatch(action: Action<ModuleState, RootState>): Promise<void> {
         return combineLatest(this.state$, this.parentStore.state$).pipe(
             first(),
-            switchMap(([state, rootState]: [ModuleState, ParentState]) => fromPromise(action(state, rootState)))
+            switchMap(([state, rootState]: [ModuleState, RootState]) => fromPromise(action(state, rootState)))
         ).toPromise();
     }
 
