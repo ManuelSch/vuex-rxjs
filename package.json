@@ -1,0 +1,37 @@
+{
+    "name": "vuex-rxjs",
+    "version": "0.0.1",
+    "description": "A type-safe Vuex alternative utilizing RxJS; Compatible with Vue Devtools",
+    "author": "manuelsch",
+    "license": "MIT",
+    "keywords": [
+        "Vue",
+        "Vuex",
+        "RxJS",
+        "Typescript",
+        "Flux",
+        "State management",
+        "Reactive"
+    ],
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "files": [
+        "dist",
+        "types"
+    ],
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "peerDependencies": {
+        "rxjs": "^6.3.3"
+    },
+    "devDependencies": {
+        "rxjs": "^6.3.3",
+        "typescript": "^3.1.5",
+        "vue": "^2.5.17"
+    }
+}
