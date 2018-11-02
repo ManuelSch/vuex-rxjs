@@ -2,6 +2,7 @@ import {first, publishReplay, refCount, scan, startWith, switchMap, throttleTime
 import {Observable, Subject} from "rxjs";
 import {Action, IStore, Mutation} from "../types";
 import {fromPromise} from "rxjs/internal-compatibility";
+import {DevtoolsPlugin} from "./devtools";
 
 
 export class Store<RootState> implements IStore<RootState> {
@@ -27,7 +28,11 @@ export class Store<RootState> implements IStore<RootState> {
     constructor(
         public readonly initialState: RootState
     ) {
-
+        DevtoolsPlugin.initialize<RootState>({
+            subscribe: fn => this._devtools.mutationHookSubject.subscribe(({mutation, newState}) => fn(mutation, newState)),
+            dispatch: mutation => this.commit(mutation),
+            state: initialState
+        });
     }
 
     public commit(mutation: Mutation<RootState>): void {
