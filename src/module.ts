@@ -22,6 +22,10 @@ export class Module<ModuleState, RootState> implements IStore<ModuleState, RootS
 
     }
 
+    public bind<PropType>(mapping: (state: ModuleState) => PropType): PropType {
+        return this.state$.pipe(map((state: ModuleState) => mapping(state))) as unknown as PropType;
+    }
+
     public commit(mutation: Mutation<ModuleState, RootState>): void {
         this.parentStore.commit({
             type: mutation.type,
@@ -43,6 +47,7 @@ export class Module<ModuleState, RootState> implements IStore<ModuleState, RootS
             switchMap(([state, rootState]: [ModuleState, RootState]) => fromPromise(action(state, rootState)))
         ).toPromise();
     }
+
 
 }
 

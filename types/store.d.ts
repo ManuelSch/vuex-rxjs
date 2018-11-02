@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 export interface IStore<State, RootState = State> {
     readonly state$: Observable<State>;
 
+    bind<PropType>(mapping: (state: State) => PropType): PropType
+
     commit(mutation: Mutation<State, RootState>): void;
 
     dispatch(action: Action<State, RootState>): Promise<void>;

@@ -1,4 +1,4 @@
-import {first, publishReplay, refCount, scan, startWith, switchMap, throttleTime} from "rxjs/operators";
+import {first, map, publishReplay, refCount, scan, startWith, switchMap, throttleTime} from "rxjs/operators";
 import {Observable, Subject} from "rxjs";
 import {Action, IStore, Mutation} from "../types";
 import {fromPromise} from "rxjs/internal-compatibility";
@@ -33,6 +33,10 @@ export class Store<RootState> implements IStore<RootState> {
             dispatch: mutation => this.commit(mutation),
             state: initialState
         });
+    }
+
+    public bind<PropType>(mapping: (state: RootState) => PropType): PropType {
+        return this.state$.pipe(map((state: RootState) => mapping(state))) as unknown as PropType;
     }
 
     public commit(mutation: Mutation<RootState>): void {
