@@ -4,7 +4,7 @@ State management for [Vue](https://github.com/vuejs/vue):
 * Compatible with [vue-devtools](https://github.com/vuejs/vue-devtools)
 * Type-safe mutations
 * Reactive approach (based on [rxjs](https://github.com/ReactiveX/rxjs))
-* Inspired to [vuex](https://github.com/vuejs/vuex) 
+* Inspired by [vuex](https://github.com/vuejs/vuex) 
 
 
 
