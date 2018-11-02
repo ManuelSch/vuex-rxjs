@@ -25,7 +25,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "pre-publish": "npm run build && npm pack && for %i in (*.tgz) do (tar -xzf %i)"
+        "pre-publish": "npm run build && (for %i in (vuex-rxjs*.tgz) do (del %i)) && npm pack && (if exist \"./package\" rmdir \"./package\" /s /q) && (for %i in (vuex-rxjs*.tgz) do (tar -xzf %i))"
     },
     "peerDependencies": {
         "rxjs": "^6.3.3"
