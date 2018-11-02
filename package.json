@@ -1,6 +1,6 @@
 {
     "name": "vuex-rxjs",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A type-safe Vuex alternative utilizing RxJS; Compatible with Vue Devtools",
     "author": "manuelsch",
     "license": "MIT",
@@ -15,7 +15,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "git+https://github.com/ManuelSch/vuex-rxjs"
     },
     "files": [
         "dist",

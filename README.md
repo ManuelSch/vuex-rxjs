@@ -22,3 +22,4 @@ _In progress_
 ### Todo
 * Complete the Readme (Usage)
 * Add example
+* tests
