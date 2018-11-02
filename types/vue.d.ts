@@ -1,6 +1,6 @@
 import Vue from "vue";
-import {Observable, Subscription} from "rxjs";
-import {BindTo} from "./$bindState";
+import {Subscription} from "rxjs";
+import {IStore} from "./store";
 
 
 declare module "vue/types/options" {
@@ -11,6 +11,6 @@ declare module "vue/types/options" {
 
 declare module "vue/types/vue" {
     interface Vue {
-        $bindState: <P>(from: Observable<P>) => BindTo<P>
+        $bindState: <State, PropType>(store: IStore<State, any>, mapping: (state: State) => PropType) => PropType
     }
 }
