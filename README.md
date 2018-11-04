@@ -1,16 +1,19 @@
 # vuex-rxjs
 
 State management for [Vue](https://github.com/vuejs/vue):
-* Compatible with [vue-devtools](https://github.com/vuejs/vue-devtools)
+* Compatible with [Vue Devtools](https://github.com/vuejs/vue-devtools)
 * Type-safe mutations
-* Reactive approach (based on [rxjs](https://github.com/ReactiveX/rxjs))
-* Inspired by [vuex](https://github.com/vuejs/vuex) 
+* Reactive approach (based on [RxJS](https://github.com/ReactiveX/rxjs))
+* Inspired by [Vuex](https://github.com/vuejs/vuex) 
 
 
 
 ### Installation
 ```sh
-npm install vuex-rx --save
+npm install vuex-rxjs --save
+```
+```sh
+yarn add vuex-rxjs --save
 ```
 
 _Don't forget to install RxJS as a peer dependency:_ `npm install rxjs --save`
@@ -22,4 +25,4 @@ _In progress_
 ### Todo
 * Complete the Readme (Usage)
 * Add example
-* tests
+* Add tests
