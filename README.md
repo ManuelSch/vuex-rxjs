@@ -13,7 +13,7 @@ State management for [Vue](https://github.com/vuejs/vue):
 npm install vuex-rxjs --save
 ```
 ```sh
-yarn add vuex-rxjs --save
+yarn add vuex-rxjs
 ```
 
 _Don't forget to install RxJS as a peer dependency:_ `npm install rxjs --save`
@@ -24,5 +24,5 @@ _In progress_
 
 ### Todo
 * Complete the Readme (Usage)
-* Add example
+* Add module example
 * Add tests
