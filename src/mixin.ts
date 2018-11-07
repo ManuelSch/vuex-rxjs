@@ -7,10 +7,10 @@ export const mixin: any = {
 
         Object.keys(this.$data).forEach(key => {
             const prop: any = (this as any)[key];
-            (this as any)[key] = null;
 
             // if property has been declared as an Observable -> subscribe to it:
             if (prop instanceof Observable && prop.subscribe) {
+                (this as any)[key] = null;
                 this.$options.__subs.add(
                     prop.subscribe(state => (this as any)[key] = state)
                 );
