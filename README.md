@@ -1,4 +1,4 @@
-# vuex-rxjs
+# vuex-rxjs 💽🔄👁
 
 State management for [Vue](https://github.com/vuejs/vue):
 * Compatible with [Vue Devtools](https://github.com/vuejs/vue-devtools)
@@ -8,7 +8,7 @@ State management for [Vue](https://github.com/vuejs/vue):
 
 
 
-## Installation
+## Installation ⬇
 
 _Install RxJS as a peer dependency:_ `npm install rxjs --save`
 
@@ -19,8 +19,7 @@ npm install vuex-rxjs --save
 yarn add vuex-rxjs
 ```
 
-
-## Usage
+## Usage (the simple way) 👶
 First, make sure VuexRxJS is properly installed/registered:
 
 **main.ts:**
@@ -38,16 +37,14 @@ Then, define your application state and your first store:
 
 **store.ts:**
 ```ts
+import {Store} from "vuex-rxjs/dist/store";
+
 /**
  * Define the state:
  */
 class State {
     counter: number = 0;    // initial value for counter
 }
-```
-
-```ts
-import {Store} from "vuex-rxjs/dist/store";
 
 /**
  * Define your store:
@@ -71,7 +68,7 @@ class SimpleStore extends Store<State> {
 }
 
 /**
- * Instatiate your store and export it:
+ * Instantiate your store and export it:
  */
 export const store = new SimpleStore(new State());
 ```
@@ -105,7 +102,10 @@ Now you can use your store in all of your components:
 </script>
 ```
 
-## Modules (advanced usage)
+🍻🎊 Done! 🎉🥂
+
+
+## Modules (advanced usage) 💪
 In complex applications, you will probably want to split your state into different parts, like so:
 ```
 Rootstate
@@ -148,7 +148,7 @@ class ProfileStore extends Module<ProfileState, RootState> {
     setUsername(newName: string) {
         this.commit({
             type: 'SET_USERNAME',
-            payload: profileState => ({
+            payload: profile => ({
                 username: newName
             })
         });
@@ -162,14 +162,37 @@ export const profileStore = new ProfileStore(
 );
 ```
 
+**Component.vue:**
+```html
+<template>
+    <div id="app">
+        <p>Your name: {{username}}</p>
+        <button @click="changeName()">I'm Bob now!</button>
+    </div>
+</template>
+
+<script lang="ts">
+    import {profileStore} from "./profile.store";
+
+    @Component
+    export default class App extends Vue {
+    
+        username: string = profileStore.bind(profile => profile.username);
+
+        changeName() {
+            profileStore.setUsername('Bob');
+        }
+    }
+</script>
+```
 
 
 
-## Examples
+## Examples 👀
 * [Counter](https://github.com/ManuelSch/vuex-rxjs/tree/master/examples/simple-counter)
 
 
-## Todo
+## Todo 🗒
 * Complete the Readme (Usage)
 * Add module example
 * Add tests
