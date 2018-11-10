@@ -187,12 +187,70 @@ export const profileStore = new ProfileStore(
 ```
 
 
+## API and types
+
+**Store:**
+```ts
+class Store<RootState> {
+
+    constructor(initialState: RootState);
+    
+    // in case you need to directly subscribe to the state:
+    state$: Observable<RootState>;
+    
+    // bind a state property to a component property:
+    bind<PropertyType>(mapping: (state: RootState) => PropertyType): PropertyType;
+    
+    // mutate the state:
+    commit(mutation: Mutation<RootState>): void;
+    
+    // get the current state and invoke mutations (or do other stuff) based on it:
+    dispatch(action: Action<RootState>): Promise<void>;
+}
+```
+
+**Module:**
+```ts
+class Module<ModuleState, RootState> {
+    
+    constructor(
+        parentStore: IStore<RootState>,
+        stateMap: (state: RootState) => ModuleState,
+        dispatchMap: (moduleState: ModuleState, rootState: RootState) => void
+    );
+    
+    // in case you need to directly subscribe to the module state:
+    state$: Observable<ModuleState>;
+    
+    // bind a module state property to a component property:
+    bind<PropertyType>(mapping: (state: ModuleState) => PropertyType): PropertyType;
+    
+    // mutate the module state:
+    commit(mutation: Mutation<ModuleState, RootState>): void;
+    
+    // get the current module state and invoke mutations (or do other stuff) based on it:
+    dispatch(action: Action<ModuleState, RootState>): Promise<void>;
+}
+
+```
+
+
+**Mutations and Actions:**
+```ts
+interface Mutation<State, RootState=State> {
+    type: string;
+    payload: Payload<State, RootState>;
+}
+
+type Payload<State, RootState=State> = (state: State, rootState: RootState) => State;
+
+type Action<State, RootState=State> = (state: State, rootState: RootState) => Promise<void>;
+```
 
 ## Examples 👀
 * [Counter](https://github.com/ManuelSch/vuex-rxjs/tree/master/examples/simple-counter)
 
 
 ## Todo 🗒
-* Complete the Readme (Usage)
-* Add module example
 * Add tests
+* Add module example
