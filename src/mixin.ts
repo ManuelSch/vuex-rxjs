@@ -9,7 +9,7 @@ export const mixin: any = {
             const prop: any = (this as any)[key];
 
             // if property has been declared as an Observable -> subscribe to it:
-            if (prop instanceof Observable && prop.subscribe) {
+            if (prop instanceof Observable && prop.subscribe && !(prop as any).next) {
                 (this as any)[key] = null;
                 this.$options.__subs.add(
                     prop.subscribe(state => (this as any)[key] = state)
