@@ -1,4 +1,4 @@
-import {first, map, publishReplay, refCount, scan, startWith, switchMap, throttleTime} from "rxjs/operators";
+import {first, map, publishReplay, refCount, scan, startWith, switchMap} from "rxjs/operators";
 import {Observable, Subject} from "rxjs";
 import {Action, IStore, Mutation} from "../types";
 import {fromPromise} from "rxjs/internal-compatibility";
@@ -20,7 +20,6 @@ export class Store<RootState> implements IStore<RootState> {
             return newState;
         }, this.initialState),
         startWith(this.initialState),
-        throttleTime(1),
         publishReplay(1),
         refCount(),
     );
