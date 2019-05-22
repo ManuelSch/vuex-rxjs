@@ -1,5 +1,7 @@
 import {Mutation} from "../types";
 
+let global: any;
+
 export interface DevtoolsStore<RootState> {
     state: RootState;
 
@@ -17,24 +19,30 @@ function replaceStateMutation<RootState>(newState: RootState): Mutation<RootStat
 
 export const DevtoolsPlugin = {
     initialize<RootState>(store: DevtoolsStore<RootState>) {
-        const devtoolHook = typeof window !== 'undefined' && (window as any)['__VUE_DEVTOOLS_GLOBAL_HOOK__'];
+        try {
+            const target = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+            const devtoolHook = target['__VUE_DEVTOOLS_GLOBAL_HOOK__'];
 
-        if (!devtoolHook) {
-            return;
-        }
-
-        devtoolHook.emit('vuex:init', store);
-
-        devtoolHook.on('vuex:travel-to-state', (targetState: any) => {
-            store.dispatch(replaceStateMutation(targetState));
-            store.state = targetState;
-        });
-
-        store.subscribe((mutation: Mutation<RootState, RootState>, newState: RootState) => {
-            store.state = newState;
-            if (mutation.type !== replaceStateMutation(null).type) {
-                devtoolHook.emit('vuex:mutation', mutation, newState);
+            if (!devtoolHook) {
+                throw "!devtoolHook";
             }
-        });
+
+            devtoolHook.emit('vuex:init', store);
+
+            devtoolHook.on('vuex:travel-to-state', (targetState: any) => {
+                store.dispatch(replaceStateMutation(targetState));
+                store.state = targetState;
+            });
+
+            store.subscribe((mutation: Mutation<RootState, RootState>, newState: RootState) => {
+                store.state = newState;
+                if (mutation.type !== replaceStateMutation(null).type) {
+                    devtoolHook.emit('vuex:mutation', mutation, newState);
+                }
+            });
+        }
+        catch (e) {
+            console.error('ERROR: vuex-rxjs devtools support could not be initialized:', e);
+        }
     }
 };
