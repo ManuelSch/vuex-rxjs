@@ -34,7 +34,7 @@ export class Store<RootState> implements IStore<RootState> {
         });
     }
 
-    public bind<PropType>(mapping: (state: RootState) => PropType): PropType {
+    public bind<PropType>(mapping: (state: Readonly<RootState>) => PropType): PropType {
         return this.state$.pipe(map((state: RootState) => mapping(state))) as unknown as PropType;
     }
 

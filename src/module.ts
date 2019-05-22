@@ -22,7 +22,7 @@ export class Module<ModuleState, RootState> implements IStore<ModuleState, RootS
 
     }
 
-    public bind<PropType>(mapping: (state: ModuleState) => PropType): PropType {
+    public bind<PropType>(mapping: (state: Readonly<ModuleState>) => PropType): PropType {
         return this.state$.pipe(map((state: ModuleState) => mapping(state))) as unknown as PropType;
     }
 

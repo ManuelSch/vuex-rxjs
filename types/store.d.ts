@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 export interface IStore<State, RootState = State> {
     readonly state$: Observable<State>;
 
-    bind<PropType>(mapping: (state: State) => PropType): PropType
+    bind<PropType>(mapping: (state: Readonly<State>) => PropType): PropType
 
     commit(mutation: Mutation<State, RootState>): void;
 
@@ -16,6 +16,6 @@ export interface Mutation<State, RootState = State> {
     payload: Payload<State, RootState>;
 }
 
-export type Payload<State, RootState = State> = (state: State, rootState: RootState) => State;
+export type Payload<State, RootState = State> = (state: Readonly<State>, rootState: Readonly<RootState>) => State;
 
-export type Action<State, RootState = State> = (state: State, rootState: RootState) => Promise<void>
+export type Action<State, RootState = State> = (state: Readonly<State>, rootState: Readonly<RootState>) => Promise<void>
