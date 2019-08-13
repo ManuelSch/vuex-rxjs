@@ -10,14 +10,14 @@
         "rxjs": "^6.5.2",
         "vue": "^2.6.10",
         "vue-class-component": "^7.1.0",
-        "vue-property-decorator": "^8.1.1",
+        "vue-property-decorator": "^8.2.1",
         "vuex-rxjs": "^0.4.1"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.7.0",
-        "@vue/cli-plugin-typescript": "^3.7.0",
-        "@vue/cli-service": "^3.7.0",
-        "typescript": "^3.4.5",
+        "@vue/cli-plugin-babel": "^3.10.0",
+        "@vue/cli-plugin-typescript": "^3.10.0",
+        "@vue/cli-service": "^3.10.0",
+        "typescript": "^3.5.3",
         "vue-template-compiler": "^2.6.10"
     }
 }
